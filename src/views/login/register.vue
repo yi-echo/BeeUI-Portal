@@ -1,11 +1,24 @@
 <script lang="ts" setup>
-import axios from "@/utils/axios";
+import { register } from "@/api/auth.api";
+import { reactive } from "vue";
+import { useRouter } from "vue-router";
 
-const test = async () => {
-  const res = await axios.get("/user");
-  console.log(res);
+const router = useRouter();
+
+const userInfo = reactive({
+  username: "",
+  email: "",
+  password: "",
+  passwordConfirm: "",
+});
+
+const handleRegister = async () => {
+  const res = await register(userInfo);
+  console.log(res.status);
+  if(res.status === 201){
+    router.push("/home");
+  }
 };
-test();
 </script>
 
 <template>
@@ -20,30 +33,13 @@ test();
                 <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
               </div>
               <form class="user">
-                <div class="form-group row">
-                  <div class="col-sm-6 mb-3 mb-sm-0">
-                    <input
-                      type="text"
-                      class="form-control form-control-user"
-                      id="exampleFirstName"
-                      placeholder="First Name"
-                    />
-                  </div>
-                  <div class="col-sm-6">
-                    <input
-                      type="text"
-                      class="form-control form-control-user"
-                      id="exampleLastName"
-                      placeholder="Last Name"
-                    />
-                  </div>
-                </div>
                 <div class="form-group">
                   <input
-                    type="email"
+                    type="text"
                     class="form-control form-control-user"
-                    id="exampleInputEmail"
-                    placeholder="Email Address"
+                    id="exampleInputUsername"
+                    placeholder="Username"
+                    v-model="userInfo.username"
                   />
                 </div>
                 <div class="form-group row">
@@ -53,6 +49,7 @@ test();
                       class="form-control form-control-user"
                       id="exampleInputPassword"
                       placeholder="Password"
+                      v-model="userInfo.password"
                     />
                   </div>
                   <div class="col-sm-6">
@@ -61,12 +58,13 @@ test();
                       class="form-control form-control-user"
                       id="exampleRepeatPassword"
                       placeholder="Repeat Password"
+                      v-model="userInfo.passwordConfirm"
                     />
                   </div>
                 </div>
-                <a href="login.html" class="btn btn-primary btn-user btn-block">
+                <button type="submit" class="btn btn-primary btn-user btn-block" @click="handleRegister">
                   Register Account
-                </a>
+                </button>
                 <hr />
                 <a href="index.html" class="btn btn-google btn-user btn-block">
                   <i class="fab fa-google fa-fw"></i> Register with Google

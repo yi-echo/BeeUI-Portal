@@ -42,8 +42,9 @@ const handleLogin = () => {
             <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
             <div class="col-lg-6">
               <div class="p-5">
-                <div class="text-center">
-                  <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
+                <div class="text-center d-flex align-items-center justify-content-center">
+                  <h1 class="h4 text-gray-900 mb-4 mr-2">Welcome Back!</h1>
+                  <img src="@/assets/img/bee_admin_logo.png" alt="" style="width: 50px;height: 50px;border-radius: 50%;" class="mb-4">
                 </div>
                 <form class="user">
                   <div class="form-group">
